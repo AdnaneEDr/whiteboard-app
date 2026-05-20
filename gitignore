@@ -1,0 +1,27 @@
+# Dépendances
+node_modules/
+
+# Base de données
+*.db
+*.db-journal
+
+# Variables d'environnement
+.env
+
+# Build
+dist/
+build/
+
+# Uploads (on garde le dossier mais pas les fichiers)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma generated
+src/generated/

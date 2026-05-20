@@ -1,0 +1,115 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  passwordHash String
+  createdAt    DateTime     @default(now())
+  whiteboards  Whiteboard[]
+  images       ImageNode[]
+  texts        TextNode[]
+  drawings     DrawingNode[]
+  shapes       ShapeNode[]
+}
+
+model Whiteboard {
+  id        Int           @id @default(autoincrement())
+  userId    Int
+  user      User          @relation(fields: [userId], references: [id])
+  name      String        @default("Nouveau tableau")
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  images    ImageNode[]
+  texts     TextNode[]
+  drawings  DrawingNode[]
+  shapes    ShapeNode[]
+}
+
+model ImageNode {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id])
+  whiteboardId Int
+  whiteboard   Whiteboard @relation(fields: [whiteboardId], references: [id])
+  url          String
+  x            Float      @default(0)
+  y            Float      @default(0)
+  width        Float      @default(200)
+  height       Float      @default(200)
+  rotation     Float      @default(0)
+  zIndex       Int        @default(0)
+  opacity      Float      @default(1)
+  brightness   Float      @default(1)
+  contrast     Float      @default(1)
+  saturation   Float      @default(1)
+  blur         Float      @default(0)
+  grayscale    Float      @default(0)
+  sepia        Float      @default(0)
+  locked       Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+}
+
+model TextNode {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id])
+  whiteboardId Int
+  whiteboard   Whiteboard @relation(fields: [whiteboardId], references: [id])
+  text         String
+  x            Float      @default(0)
+  y            Float      @default(0)
+  fontSize     Float      @default(20)
+  color        String     @default("#f0f0f0")
+  fontFamily   String     @default("Arial")
+  fontStyle    String     @default("normal")
+  align        String     @default("left")
+  rotation     Float      @default(0)
+  zIndex       Int        @default(0)
+  locked       Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+}
+
+model DrawingNode {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id])
+  whiteboardId Int
+  whiteboard   Whiteboard @relation(fields: [whiteboardId], references: [id])
+  points       String     // JSON array of numbers: [x1,y1,x2,y2,...]
+  color        String     @default("#ffffff")
+  strokeWidth  Float      @default(4)
+  opacity      Float      @default(1)
+  zIndex       Int        @default(0)
+  tension      Float      @default(0.5)
+  locked       Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+}
+
+model ShapeNode {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id])
+  whiteboardId Int
+  whiteboard   Whiteboard @relation(fields: [whiteboardId], references: [id])
+  type         String     // "rect" | "circle" | "arrow"
+  x            Float      @default(0)
+  y            Float      @default(0)
+  width        Float      @default(150)
+  height       Float      @default(100)
+  rotation     Float      @default(0)
+  fill         String     @default("transparent")
+  stroke       String     @default("#ffffff")
+  strokeWidth  Float      @default(2)
+  opacity      Float      @default(1)
+  zIndex       Int        @default(0)
+  locked       Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+}

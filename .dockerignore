@@ -1,0 +1,8 @@
+node_modules
+backend/node_modules
+frontend/node_modules
+backend/dev.db
+backend/uploads/*
+!backend/uploads/.gitkeep
+.prisma
+backend/.prisma
