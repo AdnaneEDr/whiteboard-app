@@ -7,7 +7,7 @@ Application web fullstack de type whiteboard permettant de créer des tableaux d
 ## Démarrage rapide — tester en 3 minutes
 
 ```bash
-git clone <url-du-repo>
+git clone https://github.com/AdnaneEDr/whiteboard-app.git
 cd whiteboard-app
 docker-compose up --build
 ```
@@ -60,7 +60,7 @@ Puis ouvrir **http://localhost** et suivre ces étapes :
 ### Option A — Docker
 
 ```bash
-git clone <url-du-repo>
+git clone https://github.com/AdnaneEDr/whiteboard-app.git
 cd whiteboard-app
 docker-compose up --build
 ```
