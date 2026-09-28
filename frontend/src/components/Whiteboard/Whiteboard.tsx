@@ -822,7 +822,7 @@ const Whiteboard = ({ whiteboardId, whiteboardName, onLogout, onBackToDashboard 
                     })}
 
                     {currentDrawing && currentDrawing.length >= 4 && (
-                        
+
                         <Line
                             points={currentDrawing}
                             stroke={drawColor}
